@@ -10,12 +10,14 @@
 int main(void)
 {
     lcdInit();
+	
+    lcdClear();
+    lcdPrint("LCD Library Test");
+    lcdSetCursor(2,6);
+    lcdPrint("Working");	
+    
     while (1) 
     {
-		lcdClear();
-		lcdPrint("LCD Library Test");
-		lcdSetCursor(2,6);
-		lcdPrint("Working");
-		_delay_ms(1000);
+	    //Do nothing...
     }
 }
