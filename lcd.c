@@ -4,15 +4,15 @@
  * 2019, Tibor Rojko
  *
  * pinout:
- * PCF8574 <--> LCD Display
- *	 P0				D4
+ * PCF8574        <-->      LCD Display
+ *   P0				D4
  *   P1				D5
  *   P2				D6
  *   P3  			D7
  *   P4  			RS
  *   P5  			RW
  *   P6  			EN
- *   P7			 BackLight
+ *   P7 		     BackLight
  **********************************************************************************************/
 
 
@@ -28,20 +28,20 @@ void lcdWriteChar(uint8_t byte, uint8_t dataFlag)
 	Lower_Nibble = byte & 0x0F;
 	Upper_Nibble = ((byte & 0xF0) >> 4);
 
-    twiStart();									//send TWI start condition
-    twiSend(PCF8574_ADDR);						//send PCF8574 address to the i2c bus
+    twiStart();							//send TWI start condition
+    twiSend(PCF8574_ADDR);					//send PCF8574 address to the i2c bus
 	
 	//output high nibble
 	if(dataFlag) Upper_Nibble |= RS;			//RS=1, RS enable
-	twiSend(Upper_Nibble | EN);					//EN=1, EN enable
-	twiSend(Upper_Nibble);						//EN=0, RS=1 EN Disable
+	twiSend(Upper_Nibble | EN);				//EN=1, EN enable
+	twiSend(Upper_Nibble);					//EN=0, RS=1 EN Disable
 	
 	//output low nibble
 	if(dataFlag) Lower_Nibble |= RS;			//RS=1, RS enable
-	twiSend(Lower_Nibble | EN);					//EN=1, EN enable 
-	twiSend(Lower_Nibble);						//EN=0, RS=1 EN Disable
+	twiSend(Lower_Nibble | EN);				//EN=1, EN enable 
+	twiSend(Lower_Nibble);					//EN=0, RS=1 EN Disable
 
-    twiStop();									//send TWI stop condition
+    twiStop();							//send TWI stop condition
     _delay_us(40);                              
 }
 
